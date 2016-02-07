@@ -126,6 +126,7 @@
 			m.ignoreWarnDuplicateFilename,
 			m.keyword,
 			m.projectName,
+			m.windowsTargetPlatform,
 		}
 	end
 
@@ -1636,6 +1637,12 @@
 	function m.projectName(prj)
 		if prj.name ~= prj.filename then
 			m.element("ProjectName", nil, "%s", prj.name)
+		end
+	end
+	
+	function m.windowsTargetPlatform(prj)
+		if prj.windowstargetplatform ~= nil then
+			m.element("WindowsTargetPlatformVersion", nil, prj.windowstargetplatform)
 		end
 	end
 

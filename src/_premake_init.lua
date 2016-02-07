@@ -51,6 +51,13 @@
 		scope = "project",
 		kind = "path"
 	}
+	
+	api.register {
+		name = "windowstargetplatform",
+		scope = "project",
+		kind = "string",
+	}
+
 
 	api.register {
 		name = "buildaction",
