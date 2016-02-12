@@ -586,7 +586,8 @@
 			m.resourceCompileFiles,
 			m.customBuildFiles,
 			m.customRuleFiles,
-			m.midlFiles
+			m.midlFiles,
+			m.fxCompileFiles
 	}
 	end
 
@@ -764,6 +765,29 @@
 	end
 
 
+	m.elements.FxCompileFile = function(cfg, file)
+		return {}
+	end
+
+	m.elements.FxCompileFileCfg = function(fcfg, condition)
+		if fcfg then
+			return {
+				m.excludedFromBuild,
+				m.shaderType,
+			}
+		else
+			return {
+				m.excludedFromBuild
+			}
+		end
+	end
+
+
+	function m.fxCompileFiles(prj, groups)
+		m.emitFiles(prj, groups, "FxCompile", function(cfg)
+			return cfg.system == p.WINDOWS
+		end)
+	end
 
 	function m.categorizeSources(prj)
 		local groups = prj._vc2010_sources
@@ -819,6 +843,8 @@
 			return "ResourceCompile"
 		elseif path.isidlfile(file.name) then
 			return "Midl"
+		elseif path.ishlslfile(file.name) then
+			return "FxCompile"
 		else
 			return "None"
 		end
@@ -1874,6 +1900,12 @@
 		p.xmlUtf8()
 	end
 
+
+	function m.shaderType(fcfg, condition)
+		if fcfg.shaderType then
+			m.element("ShaderType", condition, "%s", fcfg.shaderType)
+		end
+	end
 
 
 ---------------------------------------------------------------------------

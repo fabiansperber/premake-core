@@ -1090,6 +1090,23 @@
 		kind = "boolean",
 	}
 
+	api.register {
+		name = "shadertype",
+		scope = "config",
+		kind = "string",
+        allowed = {
+            "Effect",
+			"Vertex",
+			"Pixel",
+			"Geometry",
+			"Hull",
+			"Domain",
+			"Compute",
+			"Texture",
+			"RootSignature",
+		}
+	}
+
 -----------------------------------------------------------------------------
 --
 -- Field name aliases for backward compatibility
